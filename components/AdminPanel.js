@@ -191,7 +191,7 @@ function AdminPanel(props) {
                         categories: categories,
                         qrUrl: qrUrl
                       };
-                      var fileContent = "/* Archivo exportado automáticamente */\\n\\n" + 
+                      var fileContent = "/* Archivo exportado automáticamente */\n\n" + 
                                         "window.EXPORTED_DATA = " + JSON.stringify(dataToExport, null, 2) + ";";
                       
                       var blob = new Blob([fileContent], { type: "text/javascript" });

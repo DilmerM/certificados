@@ -1,4 +1,6 @@
-/* Archivo exportado automáticamente */\n\nwindow.EXPORTED_DATA = {
+/* Archivo exportado automáticamente */
+
+window.EXPORTED_DATA = {
   "certificates": [
     {
       "id": "local-1786771093182",
