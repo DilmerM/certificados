@@ -5,8 +5,9 @@ function App() {
 
   var categoriesState = React.useState(function() {
     var stored = window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.CATEGORIES);
-    if (stored) return stored;
-    if (window.EXPORTED_DATA && window.EXPORTED_DATA.categories) return window.EXPORTED_DATA.categories;
+    var exported = window.EXPORTED_DATA && window.EXPORTED_DATA.categories;
+    if (exported && exported.length > 1) return exported;
+    if (stored && stored.length > 1) return stored;
     return window.APP_CONFIG.DEFAULT_CATEGORIES;
   });
   var categories = categoriesState[0];
@@ -14,8 +15,9 @@ function App() {
 
   var qrUrlState = React.useState(function() { 
     var stored = window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.QR_CODE);
+    var exported = window.EXPORTED_DATA && window.EXPORTED_DATA.qrUrl;
+    if (exported) return exported;
     if (stored !== null) return stored;
-    if (window.EXPORTED_DATA && window.EXPORTED_DATA.qrUrl) return window.EXPORTED_DATA.qrUrl;
     return null;
   });
   var qrUrl = qrUrlState[0];
@@ -23,8 +25,9 @@ function App() {
 
   var certificatesState = React.useState(function() { 
     var stored = window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.CERTIFICATES);
+    var exported = window.EXPORTED_DATA && window.EXPORTED_DATA.certificates;
+    if (exported && exported.length > 0) return exported;
     if (stored && stored.length > 0) return stored;
-    if (window.EXPORTED_DATA && window.EXPORTED_DATA.certificates) return window.EXPORTED_DATA.certificates;
     return []; 
   });
   var certificates = certificatesState[0];
