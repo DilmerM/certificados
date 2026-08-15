@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio de certificados profesionales y formación continua en tecnología">
+    <meta name="theme-color" content="#4f6df5">
+    <title>Certificados Profesionales | Dilmer Núñez</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234f6df5' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3Cline x1='16' y1='13' x2='8' y2='13'/%3E%3Cline x1='16' y1='17' x2='8' y2='17'/%3E%3Cline x1='10' y1='9' x2='8' y2='9'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="stiles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <noscript>Necesitas habilitar JavaScript para ver esta aplicación.</noscript>
+    <div id="root"></div>
+
+    <script>window.CertApp = {};</script>
+
+    <!-- Utilidades -->
+    <script src="utils/constants.js"></script>
+    <script src="utils/cloudinary.js"></script>
+
+    <!-- Componentes React (JSX) - orden importa -->
+    <script type="text/babel" src="components/ThemeToggle.js"></script>
+    <script type="text/babel" src="components/Header.js"></script>
+    <script type="text/babel" src="components/FloatingContact.js"></script>
+    <script type="text/babel" src="components/SearchBar.js"></script>
+    <script type="text/babel" src="components/CategoryFilter.js"></script>
+    <script type="text/babel" src="components/CertificateCard.js"></script>
+    <script type="text/babel" src="components/CertificateGallery.js"></script>
+    <script type="text/babel" src="components/CertificateModal.js"></script>
+    <script type="text/babel" src="components/UploadForm.js"></script>
+    <script type="text/babel" src="components/CategoryManager.js"></script>
+    <script type="text/babel" src="components/EditCertificateModal.js"></script>
+    <script type="text/babel" src="components/AdminPanel.js"></script>
+
+    <!-- Entrada principal (DEBE ser el último) -->
+    <script type="text/babel" src="scripts.js"></script>
+</body>
+</html>

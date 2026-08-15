@@ -1,0 +1,163 @@
+/* Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fadeOutDown {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(24px); }
+}
+
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scaleOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.92); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  70% { box-shadow: 0 0 0 10px rgba(79, 109, 245, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(79, 109, 245, 0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes borderGlow {
+  0% { border-color: var(--border-medium); }
+  50% { border-color: var(--accent-primary); }
+  100% { border-color: var(--border-medium); }
+}
+
+/* Animation Utility Classes */
+.anim-fade-in { animation: fadeIn var(--transition-normal) forwards; }
+.anim-fade-in-up { animation: fadeInUp var(--transition-normal) forwards; }
+.anim-fade-in-down {
+  animation: fadeInDown var(--transition-normal) forwards;
+}
+
+@keyframes hoverSlideUp {
+  from {
+    transform: translateY(0);
+    box-shadow: var(--depth-raised);
+  }
+  to {
+    transform: translateY(-4px);
+    box-shadow: var(--depth-floating);
+  }
+}
+
+.hover-premium {
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+.hover-premium:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--depth-floating);
+}
+
+/* Slide Out and Animations */
+.anim-slide-out { animation: slideOut 0.4s ease forwards; }
+
+/* Animated Theme Toggle (MagicUI replication) */
+.animated-theme-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 0;
+  transition: color var(--transition-fast);
+}
+.animated-theme-toggle:hover {
+  color: var(--accent-primary);
+}
+.sun-and-moon > :is(.moon, .sun, .sun-beams) {
+  transform-origin: center center;
+}
+.sun-and-moon > .sun {
+  transition: transform .5s cubic-bezier(.5,1.25,.75,1.25);
+}
+.sun-and-moon > .sun-beams {
+  transition: transform .5s cubic-bezier(.5,1.5,.75,1.25), opacity .5s cubic-bezier(.25,0,.3,1);
+}
+.sun-and-moon .moon > circle {
+  transition: transform .25s cubic-bezier(0,0,0,1);
+}
+
+.sun-and-moon.is-dark > .sun {
+  transform: scale(1.75);
+}
+.sun-and-moon.is-dark > .sun-beams {
+  opacity: 0;
+  transform: rotateZ(-25deg);
+}
+.sun-and-moon.is-dark .moon > circle {
+  transform: translateX(-14px);
+}
+
+.anim-fade-out { animation: fadeOut var(--transition-normal) forwards; }
+.anim-fade-out-down { animation: fadeOutDown var(--transition-normal) forwards; }
+.anim-slide-left { animation: slideInFromLeft var(--transition-normal) forwards; }
+.anim-slide-right { animation: slideInFromRight var(--transition-normal) forwards; }
+.anim-scale-in { animation: scaleIn var(--transition-normal) forwards; }
+.anim-scale-out { animation: scaleOut var(--transition-normal) forwards; }
+.anim-pulse { animation: pulseGlow 2s infinite; }
+
+/* Stagger Delay Classes */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+.stagger-7 { animation-delay: 0.35s; }
+.stagger-8 { animation-delay: 0.4s; }
+.stagger-9 { animation-delay: 0.45s; }
+.stagger-10 { animation-delay: 0.5s; }
+.stagger-11 { animation-delay: 0.55s; }
+.stagger-12 { animation-delay: 0.6s; }
+
+/* Image Hover Zoom */
+.img-hover-zoom {
+  overflow: hidden;
+}
+
+.img-hover-zoom img {
+  transition: transform var(--transition-slow);
+}
+
+.img-hover-zoom:hover img {
+  transform: scale(1.05);
+}

@@ -1,0 +1,127 @@
+@import url('./css/variables.css');
+@import url('./css/animations.css');
+@import url('./css/components.css');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  border-radius: 0;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  border-radius: 0;
+}
+
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+}
+
+::selection {
+  background-color: var(--accent-primary);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--bg-hover);
+  border: 2px solid var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent-dark);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+.main-content {
+  min-height: calc(100vh - 200px);
+  padding-bottom: var(--space-3xl);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (max-width: 1024px) {
+  html { font-size: 15px; }
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 var(--space-lg); }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 var(--space-sm); }
+  .main-content { padding-bottom: var(--space-xl); }
+}
+
+/* View Transitions API (MagicUI Theme Toggle Circular Animation) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Disable all native transitions while the view transition is active */
+html[data-theme-vt="active"] * {
+  transition: none !important;
+}
+
+html[data-theme-vt="active"]::view-transition-group(root) {
+  animation-duration: var(--vt-duration, 0.4s);
+}
+
+/* Ensure Dark is always on top so it can expand/contract over Light */
+/* When transitioning TO Dark (Light is old, Dark is new) */
+html[data-theme-vt="active"].dark-is-new::view-transition-old(root) { z-index: 1; }
+html[data-theme-vt="active"].dark-is-new::view-transition-new(root) { z-index: 2; clip-path: var(--vt-clip-from, circle(0% at center)); }
+
+/* When transitioning TO Light (Dark is old, Light is new) */
+html[data-theme-vt="active"].dark-is-old::view-transition-old(root) { z-index: 2; clip-path: var(--vt-clip-from, circle(100% at center)); }
+html[data-theme-vt="active"].dark-is-old::view-transition-new(root) { z-index: 1; }

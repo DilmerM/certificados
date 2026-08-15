@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* ---- Background (Light) ---- */
+  --bg-primary: #f4f6fb; /* Subtle blue-gray */
+  --bg-secondary: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-elevated: #fafbfc;
+  --bg-hover: #eef1f6;
+
+  /* ---- Accent ---- */
+  --accent-primary: #4361ee; /* A slightly more sophisticated indigo/blue */
+  --accent-secondary: #3f37c9;
+  --accent-dark: #3a0ca3;
+  --accent-glow: rgba(67, 97, 238, 0.1);
+
+  /* ---- Status ---- */
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+
+  /* ---- Text (Light) ---- */
+  --text-primary: #0f172a; /* Slate 900 */
+  --text-secondary: #475569; /* Slate 600 */
+  --text-muted: #94a3b8; /* Slate 400 */
+
+  /* ---- Borders (Light) ---- */
+  --border-subtle: rgba(15, 23, 42, 0.06);
+  --border-medium: rgba(15, 23, 42, 0.12);
+  --border-strong: rgba(15, 23, 42, 0.2);
+
+  /* ---- Depth (Light - Premium Multi-layer) ---- */
+  --depth-raised: 0 1px 2px 0 rgba(0, 0, 0, 0.05), border-top: 1px solid rgba(255,255,255,0.8);
+  --depth-elevated: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --depth-floating: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --depth-inset: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+  /* ---- Typography ---- */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-base: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.25rem;
+  --font-2xl: 1.5rem;
+  --font-3xl: 2rem;
+  --font-4xl: 2.5rem;
+
+  /* ---- Spacing ---- */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* ---- Transitions ---- */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---- Z-index ---- */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-modal: 1000;
+  --z-floating: 1500;
+  --z-notification: 2000;
+}
+
+/* ---- Dark Theme Override ---- */
+[data-theme="dark"] {
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #111128;
+  --bg-surface: #181835;
+  --bg-elevated: #1f1f42;
+  --bg-hover: #25254d;
+
+  --accent-secondary: #7b93fa;
+  --accent-glow: rgba(79, 109, 245, 0.15);
+
+  --color-success: #22c55e;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+
+  --text-primary: #e8e8f2;
+  --text-secondary: #9494b0;
+  --text-muted: #5a5a78;
+
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-medium: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.12);
+
+  --depth-raised: 0 1px 2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --depth-elevated: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --depth-floating: 0 12px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --depth-inset: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+}
