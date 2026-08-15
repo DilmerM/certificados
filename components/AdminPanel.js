@@ -179,6 +179,32 @@ function AdminPanel(props) {
                       </div>
                     )}
                   </fieldset>
+
+                  <fieldset className="admin-fieldset" style={{ marginTop: '20px' }}>
+                    <legend className="admin-legend">Publicar en Vercel</legend>
+                    <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '15px', lineHeight: '1.5' }}>
+                      Actualmente tus datos solo existen en este navegador. Para que todo el mundo pueda verlos en Vercel, debes hacerlos estáticos en el código. Haz clic abajo para descargar tu configuración actual y reemplázala en el archivo <code>utils/constants.js</code>.
+                    </p>
+                    <button className="btn-primary" style={{ width: '100%' }} onClick={function() {
+                      var dataToExport = {
+                        certificates: certificates,
+                        categories: categories,
+                        qrUrl: qrUrl
+                      };
+                      var fileContent = "/* Archivo exportado automáticamente */\\n\\n" + 
+                                        "window.EXPORTED_DATA = " + JSON.stringify(dataToExport, null, 2) + ";";
+                      
+                      var blob = new Blob([fileContent], { type: "text/javascript" });
+                      var link = document.createElement("a");
+                      link.href = URL.createObjectURL(blob);
+                      link.download = "exported_data.js";
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    }}>
+                      <i className="fa-solid fa-file-export"></i> Descargar Datos Actuales
+                    </button>
+                  </fieldset>
                 </div>
               )}
             </div>

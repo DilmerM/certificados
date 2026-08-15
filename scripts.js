@@ -3,15 +3,30 @@ function App() {
   var theme = themeState[0];
   var setTheme = themeState[1];
 
-  var categoriesState = React.useState(function() { return window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.CATEGORIES, window.APP_CONFIG.DEFAULT_CATEGORIES); });
+  var categoriesState = React.useState(function() {
+    var stored = window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.CATEGORIES);
+    if (stored) return stored;
+    if (window.EXPORTED_DATA && window.EXPORTED_DATA.categories) return window.EXPORTED_DATA.categories;
+    return window.APP_CONFIG.DEFAULT_CATEGORIES;
+  });
   var categories = categoriesState[0];
   var setCategories = categoriesState[1];
 
-  var qrUrlState = React.useState(function() { return window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.QR_CODE, null); });
+  var qrUrlState = React.useState(function() { 
+    var stored = window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.QR_CODE);
+    if (stored !== null) return stored;
+    if (window.EXPORTED_DATA && window.EXPORTED_DATA.qrUrl) return window.EXPORTED_DATA.qrUrl;
+    return null;
+  });
   var qrUrl = qrUrlState[0];
   var setQrUrl = qrUrlState[1];
 
-  var certificatesState = React.useState(function() { return window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.CERTIFICATES, []); });
+  var certificatesState = React.useState(function() { 
+    var stored = window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.CERTIFICATES);
+    if (stored && stored.length > 0) return stored;
+    if (window.EXPORTED_DATA && window.EXPORTED_DATA.certificates) return window.EXPORTED_DATA.certificates;
+    return []; 
+  });
   var certificates = certificatesState[0];
   var setCertificates = certificatesState[1];
 
