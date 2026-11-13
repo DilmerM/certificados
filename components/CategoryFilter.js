@@ -36,6 +36,16 @@ function CategoryFilter(props) {
     <nav className="filter-section anim-fade-in" role="navigation" aria-label="Filtros y búsqueda de certificados">
       <div className="container">
         
+        {/* ── Encabezado de la Sección de Certificados ── */}
+        <div className="section-title-bar">
+          <div className="section-title-bar__main">
+            <h2 className="section-title-bar__heading">Certificados</h2>
+            <span className="section-title-bar__badge">
+              {totalFiltered} {totalFiltered === 1 ? 'certificado' : 'certificados'}
+            </span>
+          </div>
+        </div>
+
         {/* ── 1. Pestañas de Categorías ── */}
         <div className="category-tabs" role="tablist" aria-label="Categorías de certificados">
           {categories.map(function(cat) {
@@ -62,7 +72,7 @@ function CategoryFilter(props) {
           })}
         </div>
 
-        {/* ── 2. Barra de Herramientas: Buscador único + Filtro Institución + Orden Fecha ── */}
+        {/* ── 2. Barra de Herramientas: Buscador único + Filtro Institución + Orden ── */}
         <div className="filter-toolbar">
           
           {/* Único Buscador */}
@@ -89,42 +99,45 @@ function CategoryFilter(props) {
             )}
           </div>
 
-          {/* Filtro por Institución Emisora */}
-          <div className="filter-toolbar__control">
-            <label className="filter-toolbar__label" htmlFor="institution-select">
-              <iconify-icon icon="ph:buildings-bold" aria-hidden="true"></iconify-icon>
-              Institución:
-            </label>
-            <select
-              id="institution-select"
-              className="filter-toolbar__select"
-              value={selectedInstitution}
-              onChange={function(e) { if (onInstitutionChange) onInstitutionChange(e.target.value); }}
-            >
-              <option value="all">Todas las instituciones</option>
-              {institutions.map(function(inst) {
-                return (
-                  <option key={inst} value={inst}>{inst}</option>
-                );
-              })}
-            </select>
-          </div>
+          {/* Fila de Selects (2 columnas en móvil) */}
+          <div className="filter-toolbar__selects-row">
+            {/* Filtro por Institución Emisora */}
+            <div className="filter-toolbar__control">
+              <label className="filter-toolbar__label" htmlFor="institution-select">
+                <iconify-icon icon="ph:buildings-bold" aria-hidden="true"></iconify-icon>
+                Institución:
+              </label>
+              <select
+                id="institution-select"
+                className="filter-toolbar__select"
+                value={selectedInstitution}
+                onChange={function(e) { if (onInstitutionChange) onInstitutionChange(e.target.value); }}
+              >
+                <option value="all">Todas las instituciones</option>
+                {institutions.map(function(inst) {
+                  return (
+                    <option key={inst} value={inst}>{inst}</option>
+                  );
+                })}
+              </select>
+            </div>
 
-          {/* Filtro / Orden por Fecha */}
-          <div className="filter-toolbar__control">
-            <label className="filter-toolbar__label" htmlFor="date-order-select">
-              <iconify-icon icon="ph:calendar-blank-bold" aria-hidden="true"></iconify-icon>
-              Fecha:
-            </label>
-            <select
-              id="date-order-select"
-              className="filter-toolbar__select"
-              value={dateOrder}
-              onChange={function(e) { if (onDateOrderChange) onDateOrderChange(e.target.value); }}
-            >
-              <option value="desc">Más recientes primero</option>
-              <option value="asc">Más antiguos primero</option>
-            </select>
+            {/* Filtro / Ordenamiento */}
+            <div className="filter-toolbar__control">
+              <label className="filter-toolbar__label" htmlFor="date-order-select">
+                <iconify-icon icon="ph:arrows-down-up-bold" aria-hidden="true"></iconify-icon>
+                Ordenar por:
+              </label>
+              <select
+                id="date-order-select"
+                className="filter-toolbar__select"
+                value={dateOrder}
+                onChange={function(e) { if (onDateOrderChange) onDateOrderChange(e.target.value); }}
+              >
+                <option value="desc">Más recientes primero</option>
+                <option value="asc">Más antiguos primero</option>
+              </select>
+            </div>
           </div>
 
           {/* Contador y botón de reset */}
@@ -134,7 +147,7 @@ function CategoryFilter(props) {
             </span>
             {hasActiveFilters && (
               <button 
-                type="button"
+                type="button" 
                 className="filter-toolbar__reset-btn"
                 onClick={onResetFilters}
                 title="Restablecer todos los filtros"

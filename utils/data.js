@@ -189,7 +189,7 @@ window.EXPORTED_DATA = {
     },
     {
       "id": "cat-1786771426403",
-      "label": "RR HH",
+      "label": "Recursos Humanos",
       "icon": "ph:book-open-bold"
     },
     {
