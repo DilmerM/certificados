@@ -2,7 +2,8 @@ var CertApp = window.CertApp || {};
 
 function formatDate(dateStr) {
   if (!dateStr) return '';
-  var months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var months = ['enero','febrero','marzo','abril','mayo','junio',
+                'julio','agosto','septiembre','octubre','noviembre','diciembre'];
   var parts = dateStr.split('-');
   if (parts.length !== 3) return dateStr;
   var d = parseInt(parts[2], 10);
@@ -22,85 +23,79 @@ function getCategoryLabel(catId) {
 
 CertApp.CertificateCard = function(props) {
   var certificate = props.certificate;
-  var index = props.index;
-  var onSelect = props.onSelect;
-
-  var btnHoverState = React.useState(false);
-  var isBtnHovered = btnHoverState[0];
-  var setIsBtnHovered = btnHoverState[1];
+  var index       = props.index;
+  var onSelect    = props.onSelect;
 
   function handleError(e) {
-    e.target.src = 'https://placehold.co/600x400?text=Imagen+No+Disponible';
+    e.target.src = 'https://placehold.co/600x400?text=Sin+imagen';
   }
 
-  function handleClick() {
-    onSelect(certificate);
+  function open() { onSelect(certificate); }
+
+  function handleKeyDown(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
   }
 
-  var delayStyle = { animationDelay: (index * 0.05) + 's' };
-
-  var btnStyle = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '8px',
-    backgroundColor: isBtnHovered ? '#4f6df5' : 'rgba(15, 23, 42, 0.65)',
-    color: '#ffffff',
-    border: isBtnHovered ? '1.5px solid #4f6df5' : '1.5px solid rgba(255, 255, 255, 0.85)',
-    padding: '10px 22px',
-    fontSize: '0.85rem',
-    fontWeight: '700',
-    letterSpacing: '0.08em',
-    textTransform: 'uppercase',
-    cursor: 'pointer',
-    boxShadow: isBtnHovered ? '0 6px 20px rgba(79, 109, 245, 0.55)' : '0 4px 14px rgba(0, 0, 0, 0.4)',
-    transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-    transform: isBtnHovered ? 'translateY(-2px) scale(1.03)' : 'translateY(0)',
-    borderRadius: '0'
-  };
+  var delay = { animationDelay: (index * 0.05) + 's' };
+  var altText = 'Certificado: ' + certificate.title +
+    (certificate.institution ? ' — ' + certificate.institution : '');
 
   return (
-    <div className="certificate-card hover-premium stagger-anim" style={delayStyle} onClick={handleClick}>
-      <div className="certificate-card__image-wrapper">
-        <img 
-          src={certificate.url} 
-          alt={certificate.title} 
-          className="certificate-card__image" 
-          onError={handleError} 
+    <article
+      className="certificate-card stagger-anim"
+      style={delay}
+      onClick={open}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
+      aria-label={'Abrir: ' + certificate.title}
+    >
+      {/* ── Miniatura: proporción fija, sin overlay ── */}
+      <div className="certificate-card__thumb">
+        <img
+          src={certificate.url}
+          alt={altText}
+          className="certificate-card__image"
+          onError={handleError}
         />
-        <div className="certificate-card__overlay">
-          <button 
-            className="certificate-card__view-btn" 
-            type="button"
-            style={btnStyle}
-            onMouseEnter={function(e) { e.stopPropagation(); setIsBtnHovered(true); }}
-            onMouseLeave={function(e) { e.stopPropagation(); setIsBtnHovered(false); }}
-          >
-            <span>VER CERTIFICADO</span>
-          </button>
-        </div>
       </div>
-      <div className="certificate-card__content certificate-card__info">
+
+      {/* ── Contenido ── */}
+      <div className="certificate-card__info">
+
+        {/* Título */}
         <h3 className="certificate-card__title">{certificate.title}</h3>
-        <div className="certificate-card__meta-premium">
+
+        {/* Metadatos: institución + fecha */}
+        <div className="certificate-card__meta">
           {certificate.institution && (
             <div className="certificate-card__meta-item">
-              <iconify-icon icon="ph:buildings-duotone"></iconify-icon>
-              <span>{certificate.institution}</span>
+              <iconify-icon icon="ph:buildings-duotone" aria-hidden="true"></iconify-icon>
+              <span className="certificate-card__institution">{certificate.institution}</span>
             </div>
           )}
           {certificate.date && (
             <div className="certificate-card__meta-item">
-              <iconify-icon icon="ph:calendar-blank-duotone"></iconify-icon>
+              <iconify-icon icon="ph:calendar-blank-duotone" aria-hidden="true"></iconify-icon>
               <span>{formatDate(certificate.date)}</span>
             </div>
           )}
         </div>
-        <div className="certificate-card__meta" style={{marginTop: 'var(--space-md)'}}>
-          <span className="certificate-card__category">{getCategoryLabel(certificate.category)}</span>
+
+        {/* Footer: categoría + acción */}
+        <div className="certificate-card__footer">
+          {certificate.category && (
+            <span className="certificate-card__category">
+              {getCategoryLabel(certificate.category)}
+            </span>
+          )}
+          <span className="certificate-card__view-link" aria-hidden="true">
+            Ver certificado →
+          </span>
         </div>
+
       </div>
-    </div>
+    </article>
   );
 };
 

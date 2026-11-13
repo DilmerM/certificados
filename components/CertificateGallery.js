@@ -25,7 +25,7 @@ CertApp.CertificateGallery = function(props) {
       });
       setFiltered(nextFiltered);
       setAnimating(false);
-    }, 300); // fade out duration
+    }, 300);
     return function() { clearTimeout(timeout); };
   }, [activeCategory, searchQuery, certificates]);
 
@@ -33,29 +33,35 @@ CertApp.CertificateGallery = function(props) {
 
   if (certificates.length === 0) {
     return (
-      <div className="empty-state">
-        <iconify-icon icon="ph:folder-open-duotone" class="empty-state__icon"></iconify-icon>
-        <h3>Aún no hay certificados</h3>
-        <p className="empty-state__text">Tu portafolio está vacío. Usa el panel de administración para comenzar a agregar tus logros.</p>
+      <div className="container">
+        <div className="empty-state">
+          <iconify-icon icon="ph:folder-open-duotone" class="empty-state__icon"></iconify-icon>
+          <h3>Aún no hay certificados</h3>
+          <p className="empty-state__text">Tu portafolio está vacío. Usa el panel de administración para comenzar a agregar tus logros.</p>
+        </div>
       </div>
     );
   }
 
   if (filtered.length === 0) {
     return (
-      <div className="empty-state">
-        <iconify-icon icon="ph:magnifying-glass-duotone" class="empty-state__icon"></iconify-icon>
-        <h3>No se encontraron resultados</h3>
-        <p className="empty-state__text">No hay certificados que coincidan con tu búsqueda o filtro actual.</p>
+      <div className="container">
+        <div className="empty-state">
+          <iconify-icon icon="ph:magnifying-glass-duotone" class="empty-state__icon"></iconify-icon>
+          <h3>No se encontraron resultados</h3>
+          <p className="empty-state__text">No hay certificados que coincidan con tu búsqueda o filtro actual.</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className={containerClass}>
-      {filtered.map(function(cert, index) {
-        return <CertApp.CertificateCard key={cert.id} certificate={cert} index={index} onSelect={onSelect} />;
-      })}
+    <div className="container">
+      <div className={containerClass}>
+        {filtered.map(function(cert, index) {
+          return <CertApp.CertificateCard key={cert.id} certificate={cert} index={index} onSelect={onSelect} />;
+        })}
+      </div>
     </div>
   );
 };

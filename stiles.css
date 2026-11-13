@@ -12,6 +12,7 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -127,58 +128,6 @@ html[data-theme-vt="active"].dark-is-old::view-transition-old(root) { z-index: 2
 html[data-theme-vt="active"].dark-is-old::view-transition-new(root) { z-index: 1; }
 
 /* ========================================================
-   OVERRIDE: Botón Ver Certificado (Hover & Normal)
+   Overrides de tarjeta — eliminados, ver components.css
    ======================================================== */
-.certificate-card__overlay {
-  position: absolute !important;
-  inset: 0 !important;
-  background-color: rgba(15, 23, 42, 0.72) !important;
-  backdrop-filter: blur(4px) !important;
-  -webkit-backdrop-filter: blur(4px) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  opacity: 0 !important;
-  transition: opacity 0.25s ease !important;
-  z-index: 10 !important;
-}
-
-.certificate-card:hover .certificate-card__overlay {
-  opacity: 1 !important;
-}
-
-.certificate-card__view-btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
-  background-color: rgba(255, 255, 255, 0.15) !important;
-  color: #ffffff !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.85) !important;
-  padding: 10px 22px !important;
-  font-size: 0.82rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.08em !important;
-  text-transform: uppercase !important;
-  cursor: pointer !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  transform: translateY(4px);
-}
-
-.certificate-card:hover .certificate-card__view-btn {
-  transform: translateY(0);
-}
-
-.certificate-card__view-btn:hover {
-  background-color: #4f6df5 !important;
-  border-color: #4f6df5 !important;
-  color: #ffffff !important;
-  box-shadow: 0 6px 20px rgba(79, 109, 245, 0.5) !important;
-  transform: translateY(-2px) scale(1.03) !important;
-}
-
-.certificate-card__view-btn:active {
-  transform: translateY(0) scale(0.98) !important;
-}
 

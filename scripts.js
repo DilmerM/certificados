@@ -48,6 +48,14 @@ function App() {
   var activeCategory = activeCategoryState[0];
   var setActiveCategory = activeCategoryState[1];
 
+  var selectedInstitutionState = React.useState('all');
+  var selectedInstitution = selectedInstitutionState[0];
+  var setSelectedInstitution = selectedInstitutionState[1];
+
+  var dateOrderState = React.useState('desc');
+  var dateOrder = dateOrderState[0];
+  var setDateOrder = dateOrderState[1];
+
   var searchQueryState = React.useState('');
   var searchQuery = searchQueryState[0];
   var setSearchQuery = searchQueryState[1];
@@ -71,6 +79,15 @@ function App() {
   var isEditModalOpenState = React.useState(false);
   var isEditModalOpen = isEditModalOpenState[0];
   var setIsEditModalOpen = isEditModalOpenState[1];
+
+  var isAuthModalOpenState = React.useState(false);
+  var isAuthModalOpen = isAuthModalOpenState[0];
+  var setIsAuthModalOpen = isAuthModalOpenState[1];
+
+  var pendingEditCertState = React.useState(null);
+  var pendingEditCert = pendingEditCertState[0];
+  var setPendingEditCert = pendingEditCertState[1];
+  var pendingEditCertRef = React.useRef(null);
 
   var editingCertState = React.useState(null);
   var editingCert = editingCertState[0];
@@ -111,6 +128,18 @@ function App() {
     }
   }, []);
 
+  var availableInstitutions = React.useMemo(function() {
+    var map = {};
+    var list = [];
+    certificates.forEach(function(c) {
+      if (c.institution && !map[c.institution]) {
+        map[c.institution] = true;
+        list.push(c.institution);
+      }
+    });
+    return list.sort();
+  }, [certificates]);
+
   var computedCounts = React.useMemo(function() {
     var counts = { all: certificates.length };
     categories.forEach(function(cat) {
@@ -127,21 +156,30 @@ function App() {
   var filteredCertificates = React.useMemo(function() {
     var filtered = certificates.filter(function(cert) {
       var matchesCat = activeCategory === 'all' || cert.category === activeCategory;
+      var matchesInst = selectedInstitution === 'all' || cert.institution === selectedInstitution;
       var titleStr = cert.title || '';
       var institutionStr = cert.institution || '';
-      var q = searchQuery.toLowerCase();
+      var q = searchQuery.toLowerCase().trim();
       var matchesSearch = !q || titleStr.toLowerCase().indexOf(q) !== -1 || 
                           institutionStr.toLowerCase().indexOf(q) !== -1;
-      return matchesCat && matchesSearch;
+      return matchesCat && matchesInst && matchesSearch;
     });
     
     return filtered.sort(function(a, b) {
       if (!a.date && !b.date) return 0;
       if (!a.date) return 1;
       if (!b.date) return -1;
-      return new Date(b.date) - new Date(a.date);
+      var diff = new Date(b.date) - new Date(a.date);
+      return dateOrder === 'asc' ? -diff : diff;
     });
-  }, [certificates, activeCategory, searchQuery]);
+  }, [certificates, activeCategory, selectedInstitution, searchQuery, dateOrder]);
+
+  function handleResetFilters() {
+    setActiveCategory('all');
+    setSelectedInstitution('all');
+    setSearchQuery('');
+    setDateOrder('desc');
+  }
 
   var selectedIdx = React.useMemo(function() {
     if (!selectedCert) return -1;
@@ -314,14 +352,39 @@ function App() {
       return c.id === updatedCert.id ? updatedCert : c;
     });
     setCertificates(updated);
+    if (selectedCert && selectedCert.id === updatedCert.id) {
+      setSelectedCert(updatedCert);
+    }
     setIsEditModalOpen(false);
     setEditingCert(null);
     showNotification('Certificado actualizado', 'success');
   }
 
   function handleOpenEdit(cert) {
-    setEditingCert(cert);
-    setIsEditModalOpen(true);
+    var targetCert = cert || selectedCert;
+    if (isAuthenticated) {
+      setEditingCert(targetCert);
+      setIsEditModalOpen(true);
+    } else {
+      pendingEditCertRef.current = targetCert;
+      setPendingEditCert(targetCert);
+      setIsAuthModalOpen(true);
+    }
+  }
+
+  function handleAuthModalSubmit(pwd) {
+    if (handleAuth(pwd)) {
+      setIsAuthModalOpen(false);
+      var toEdit = pendingEditCertRef.current || pendingEditCert || selectedCert;
+      if (toEdit) {
+        setEditingCert(toEdit);
+        setIsEditModalOpen(true);
+        pendingEditCertRef.current = null;
+        setPendingEditCert(null);
+      }
+      return true;
+    }
+    return false;
   }
 
   function handleAddCategory(newCat) {
@@ -386,10 +449,15 @@ function App() {
         active={activeCategory}
         onChange={setActiveCategory}
         certificateCounts={computedCounts}
-      />
-      <CertApp.SearchBar
-        query={searchQuery}
-        onChange={setSearchQuery}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        institutions={availableInstitutions}
+        selectedInstitution={selectedInstitution}
+        onInstitutionChange={setSelectedInstitution}
+        dateOrder={dateOrder}
+        onDateOrderChange={setDateOrder}
+        totalFiltered={filteredCertificates.length}
+        onResetFilters={handleResetFilters}
       />
       <CertApp.CertificateGallery
         certificates={filteredCertificates}
@@ -400,6 +468,7 @@ function App() {
       {isModalOpen && selectedCert && (
         <CertApp.CertificateModal
           certificate={selectedCert}
+          isAuthenticated={isAuthenticated}
           onClose={handleCloseModal}
           onEdit={handleOpenEdit}
           onNext={selectedIdx < filteredCertificates.length - 1 ? handleNextCert : null}
@@ -414,6 +483,11 @@ function App() {
           onClose={function() { setIsEditModalOpen(false); setEditingCert(null); }}
         />
       )}
+      <CertApp.AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={function() { setIsAuthModalOpen(false); setPendingEditCert(null); }}
+        onAuth={handleAuthModalSubmit}
+      />
       <CertApp.AdminPanel
         isOpen={isAdminOpen}
         isAuthenticated={isAuthenticated}
