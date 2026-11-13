@@ -4,11 +4,16 @@ function App() {
   var setTheme = themeState[1];
 
   var categoriesState = React.useState(function() {
-    var stored = window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.CATEGORIES);
-    var exported = window.EXPORTED_DATA && window.EXPORTED_DATA.categories;
-    if (exported && exported.length > 1) return exported;
-    if (stored && stored.length > 1) return stored;
-    return window.APP_CONFIG.DEFAULT_CATEGORIES;
+    var stored = window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.CATEGORIES) || [];
+    var exported = (window.EXPORTED_DATA && window.EXPORTED_DATA.categories) || [];
+    if (exported.length === 0 && stored.length === 0) return window.APP_CONFIG.DEFAULT_CATEGORIES;
+    var result = exported.slice();
+    var exportedIds = {};
+    exported.forEach(function(c) { exportedIds[c.id] = true; });
+    stored.forEach(function(c) {
+      if (!exportedIds[c.id]) result.push(c);
+    });
+    return result.length > 0 ? result : window.APP_CONFIG.DEFAULT_CATEGORIES;
   });
   var categories = categoriesState[0];
   var setCategories = categoriesState[1];
@@ -24,11 +29,17 @@ function App() {
   var setQrUrl = qrUrlState[1];
 
   var certificatesState = React.useState(function() { 
-    var stored = window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.CERTIFICATES);
-    var exported = window.EXPORTED_DATA && window.EXPORTED_DATA.certificates;
-    if (exported && exported.length > 0) return exported;
-    if (stored && stored.length > 0) return stored;
-    return []; 
+    var stored = window.StorageUtils.load(window.APP_CONFIG.STORAGE_KEYS.CERTIFICATES) || [];
+    var exported = (window.EXPORTED_DATA && window.EXPORTED_DATA.certificates) || [];
+    if (exported.length === 0) return stored;
+    if (stored.length === 0) return exported;
+    var result = exported.slice();
+    var exportedIds = {};
+    exported.forEach(function(c) { exportedIds[c.id] = true; });
+    stored.forEach(function(c) {
+      if (!exportedIds[c.id]) result.push(c);
+    });
+    return result;
   });
   var certificates = certificatesState[0];
   var setCertificates = certificatesState[1];

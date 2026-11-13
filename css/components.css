@@ -275,30 +275,49 @@
 .certificate-card__overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(10, 15, 30, 0.72);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transition: opacity var(--transition-normal);
+  z-index: 2;
 }
 .certificate-card:hover .certificate-card__overlay {
   opacity: 1;
 }
 .certificate-card__view-btn {
-  border: 1px solid white;
-  color: white;
-  background-color: transparent;
-  padding: var(--space-sm) var(--space-xl);
-  font-size: var(--font-sm);
-  cursor: pointer;
-  transition: all var(--transition-normal);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  padding: 10px 22px;
+  font-size: var(--font-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(6px);
+}
+.certificate-card:hover .certificate-card__view-btn {
+  transform: translateY(0);
 }
 .certificate-card__view-btn:hover {
-  background-color: white;
-  color: var(--bg-primary);
+  background-color: var(--accent-primary, #4f6df5);
+  border-color: var(--accent-primary, #4f6df5);
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(79, 109, 245, 0.45);
+  transform: translateY(-2px) scale(1.02);
+}
+.certificate-card__view-btn:active {
+  transform: translateY(0) scale(0.98);
 }
 
 /* 7. Certificate Modal */

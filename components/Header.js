@@ -20,7 +20,7 @@ CertApp.Header = function(props) {
           <p className="site-header__subtitle" style={{ fontSize: 'var(--font-lg)', color: 'var(--accent-primary)', fontWeight: '600' }}>Pasante Universitario: Licenciatura en Informática Administrativa</p>
           <div className="site-header__line" style={{ height: '4px', background: 'var(--accent-primary)', width: '60px', margin: '20px 0' }}></div>
           <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '25px', fontSize: '1.05rem' }}>
-            Comprometido con el desarrollo técnico y el trabajo en equipo. Apasionado por las bases de datos (SQL, Oracle), la automatización de procesos y el desarrollo de software. Con actitud proactiva orientada al aprendizaje continuo y la mejora de sistemas.
+            Pasante de Informática Administrativa (96%) con sólida base técnica, enfocado en bases de datos relacionales SQL y Oracle (Oracle Academy). Me apasiona automatizar procesos combinando programación e inteligencia artificial, con un enfoque analítico, proactivo y orientado a proponer mejoras continuas en equipo.
           </p>
           <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', marginBottom: '25px' }}>
             <span style={{ background: 'var(--bg-elevated)', padding: '6px 12px', fontSize: 'var(--font-sm)', border: '1px solid var(--border-medium)', display: 'flex', alignItems: 'center', gap: '6px' }}>

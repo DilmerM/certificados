@@ -11,6 +11,15 @@ function formatDate(dateStr) {
   return d + ' de ' + months[m] + ' de ' + y;
 }
 
+function getCategoryLabel(catId) {
+  if (!catId) return '';
+  var cats = (window.EXPORTED_DATA && window.EXPORTED_DATA.categories) || [];
+  for (var i = 0; i < cats.length; i++) {
+    if (cats[i].id === catId) return cats[i].label;
+  }
+  return catId;
+}
+
 CertApp.CertificateModal = function(props) {
   var certificate = props.certificate;
   var onClose = props.onClose;
@@ -59,7 +68,7 @@ CertApp.CertificateModal = function(props) {
         <div style={{ padding: '20px' }}>
           <h2>{certificate.title}</h2>
           <div style={{ margin: '10px 0', opacity: 0.8 }}>
-            <span>{certificate.category}</span>
+            <span>{getCategoryLabel(certificate.category)}</span>
             {certificate.institution && <span> · {certificate.institution}</span>}
             {certificate.date && <span> · {formatDate(certificate.date)}</span>}
           </div>

@@ -4,7 +4,7 @@
 
 window.APP_CONFIG = {
   PASSWORD: '1234',
-  PHONE: '+504 XXXX-XXXX',
+  PHONE: '+504 9889-2081',
   OWNER_NAME: 'Dilmer Núñez',
   TITLE: 'Certificados Profesionales',
   SUBTITLE: 'Formación continua en tecnología, desarrollo e ingeniería de sistemas',
