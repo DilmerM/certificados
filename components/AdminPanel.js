@@ -82,7 +82,6 @@ function AdminPanel(props) {
           <div className="admin-panel__body">
             <div className="password-gate">
               <i className="fa-solid fa-lock password-gate__icon"></i>
-              <h3 className="password-gate__title">Panel de Administración</h3>
               <p className="password-gate__text">Ingrese la contraseña para continuar</p>
               <form onSubmit={handleAuthSubmit}>
                 <input
