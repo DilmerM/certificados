@@ -1789,6 +1789,10 @@
 
 /* 19. Responsive */
 @media (max-width: 768px) {
+  .admin-panel {
+    width: 70%;
+    max-width: 70%;
+  }
   .certificate-gallery {
     grid-template-columns: 1fr;
   }
