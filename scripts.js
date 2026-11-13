@@ -492,6 +492,7 @@ function App() {
         isOpen={isAdminOpen}
         isAuthenticated={isAuthenticated}
         onToggle={function() { setIsAdminOpen(!isAdminOpen); }}
+        onClose={function() { setIsAdminOpen(false); }}
         onAuth={handleAuth}
         certificates={certificates}
         onUpload={handleUpload}

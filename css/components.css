@@ -1012,6 +1012,22 @@
 }
 
 /* 8. Admin Panel */
+.admin-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 1590;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-slow);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
+}
+.admin-backdrop--open {
+  opacity: 1;
+  pointer-events: auto;
+}
 .admin-panel {
   position: fixed;
   top: 0;

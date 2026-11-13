@@ -4,6 +4,7 @@ function AdminPanel(props) {
   var isOpen = props.isOpen;
   var isAuthenticated = props.isAuthenticated;
   var onToggle = props.onToggle;
+  var onClose = props.onClose || onToggle;
   var onAuth = props.onAuth;
   var certificates = props.certificates || [];
   var onUpload = props.onUpload;
@@ -23,6 +24,20 @@ function AdminPanel(props) {
   var passwordState = React.useState('');
   var password = passwordState[0];
   var setPassword = passwordState[1];
+
+  // Cerrar con tecla Escape
+  React.useEffect(function() {
+    if (!isOpen) return;
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return function() {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   function formatDate(dateStr) {
     if (!dateStr) return '';
@@ -44,14 +59,21 @@ function AdminPanel(props) {
 
   return (
     <React.Fragment>
-      <button className="admin-toggle" onClick={onToggle}>
+      <button className="admin-toggle" onClick={onToggle} aria-label="Abrir panel de administración">
         <i className="fa-solid fa-gear"></i>
       </button>
+
+      {/* Backdrop que cierra automáticamente al tocar o hacer clic afuera del sidebar */}
+      <div 
+        className={"admin-backdrop" + (isOpen ? " admin-backdrop--open" : "")} 
+        onClick={onClose}
+        aria-hidden={!isOpen}
+      />
 
       <div className={"admin-panel" + (isOpen ? " admin-panel--open" : "")}>
         <div className="admin-panel__header">
           <h2>Administración</h2>
-          <button className="admin-panel__close" onClick={onToggle}>
+          <button className="admin-panel__close" onClick={onClose} aria-label="Cerrar panel de administración">
             <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
